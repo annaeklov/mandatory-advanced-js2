@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import Getapi from "../api/GetMoviesApi.js";
+import DeleteApi from "../api/DeleteApi.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -18,17 +19,17 @@ class MainPage extends React.Component {
   }
 
   handleDelete(id) {
-    axios.delete("http://3.120.96.16:3001/movies/" + id).then(res => {
-      if (res.status === 204) {
+    DeleteApi(id).then(response => {
+      if (response.status === 204) {
         Getapi().then(data => this.setState({ moviesList: data }));
       }
-    });
+    })
+    .catch(err => console.log("Error, serverfel"))
   }
 
   render() {
     let wholeTable = (
       <table>
-        <caption className="table-caption">Movies table</caption>
         <thead>
           <tr>
             <th>Title</th>
@@ -57,14 +58,13 @@ class MainPage extends React.Component {
               </td>
               <td>
                 {
-                  <button
-                    className="mainPage-delBtn"
+                  <i
+                    className="mainPage-delBtn fa fa-trash-o"
+                    title="Delete movie"
                     onClick={() => {
                       this.handleDelete(movie.id);
                     }}
-                  >
-                    Delete movie
-                  </button>
+                  ></i>
                 }
               </td>
             </tr>
@@ -73,21 +73,22 @@ class MainPage extends React.Component {
       </table>
     );
 
-    let noMovies= (
+    let noMovies = (
       <div className="mainPage-noMovies">
-      <p style={{color: "red"}}>Oops, no movies to show..</p>
+        <p>Oops, no movies to show..</p>
       </div>
-    )
+    );
 
     return (
       <div className="mainPage">
         <Helmet>
           <title>Main page</title>
         </Helmet>
-        <h1>Main page</h1>
+
+        <h1>All movies</h1>
         <div className="mainPage-table">
-        
-        {this.state.moviesList.length ? wholeTable : noMovies}</div>
+          {this.state.moviesList.length ? wholeTable : noMovies}
+        </div>
       </div>
     );
   }
