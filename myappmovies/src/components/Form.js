@@ -1,10 +1,14 @@
 import React from "react";
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
     return (
       <main className="form-formWrapper">
-        <form>
+        <form onSubmit={this.props.handleSubmit}>
           <div className="form-titleAndDirector">
             <label name="title">Title:</label>
             <input
@@ -14,6 +18,8 @@ class Form extends React.Component {
               required
               minLength="1"
               maxLength="40"
+              onChange={this.props.handleTitle}
+              value={this.props.movie.title}
             />
             <label name="director">Director:</label>
             <input
@@ -23,6 +29,8 @@ class Form extends React.Component {
               required
               minLength="1"
               maxLength="40"
+              onChange={this.props.handleDirector}
+              value={this.props.movie.director}
             />
           </div>
           <div className="form-description">
@@ -33,6 +41,8 @@ class Form extends React.Component {
               required
               minLength="1"
               maxLength="300"
+              onChange={this.props.handleDescription}
+              value={this.props.movie.description}
             />
           </div>
           <div className="form-rating">
@@ -45,6 +55,8 @@ class Form extends React.Component {
               max="5"
               step="0.5"
               required
+              onChange={this.props.handleRating}
+              value={this.props.movie.rating}
             />
           </div>
           <div className="form-submitBtn">

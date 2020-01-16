@@ -5,15 +5,15 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <h1>HEADER</h1>
+        <h1 className="header-title">MOVIES-APP</h1>
         <nav>
-          <Link to="/">Main Page</Link>
+          <Link className="nav-link" to="/">Main page</Link>
           <br />
-          <Link to="/add">Add page</Link>
+          <Link className="nav-link" to="/add">Add a new movie</Link>
           <br />
-          <Link to="/edit/:id">Edit page</Link>
+          <Link className="nav-link" to="/edit/:id">Edit Page</Link>
           <br />
-          <Link to="/details/:id">Details page</Link>
+          <Link className="nav-link" to="/details/:id">Details Page</Link>
         </nav>
       </header>
     );

@@ -7,8 +7,6 @@ import AddPage from "./components/AddPage.js";
 import EditPage from "./components/EditPage.js";
 import DetailsPage from "./components/DetailsPage.js";
 
-
-
 class App extends React.Component {
   render() {
     return (
