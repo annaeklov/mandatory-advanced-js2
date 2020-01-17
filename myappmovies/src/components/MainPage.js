@@ -9,22 +9,26 @@ class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      moviesList: []
+      moviesList: [],
+      error: false
     };
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    Getapi().then(data => this.setState({ moviesList: data }));
+    Getapi()
+      .then(data => this.setState({ moviesList: data }))
+      .catch(err => this.setState({ error: true }));
   }
 
   handleDelete(id) {
-    DeleteApi(id).then(response => {
-      if (response.status === 204) {
-        Getapi().then(data => this.setState({ moviesList: data }));
-      }
-    })
-    .catch(err => console.log("Error, serverfel"))
+    DeleteApi(id)
+      .then(response => {
+        if (response.status === 204) {
+          Getapi().then(data => this.setState({ moviesList: data }));
+        }
+      })
+      .catch(err => this.setState({ error: true }));
   }
 
   render() {
@@ -48,12 +52,18 @@ class MainPage extends React.Component {
               </td>
               <td>
                 <Link to={"/details/" + movie.id}>
-                  <button className="mainPage-detailsBtn">Show details</button>
+                  <i
+                    className="mainPage-detailsBtn fa fa-info-circle"
+                    title="Show details about the movie"
+                  ></i>
                 </Link>
               </td>
               <td>
                 <Link to={"/edit/" + movie.id}>
-                  <button className="mainPage-editBtn">Edit movie</button>
+                  <i
+                    className="mainPage-editBtn fa fa-pencil-square-o"
+                    title="Edit movie"
+                  ></i>
                 </Link>
               </td>
               <td>
@@ -75,7 +85,7 @@ class MainPage extends React.Component {
 
     let noMovies = (
       <div className="mainPage-noMovies">
-        <p>Oops, no movies to show..</p>
+        <p>Oops, the table is empty, no movies to show..</p>
       </div>
     );
 
@@ -85,10 +95,12 @@ class MainPage extends React.Component {
           <title>Main page</title>
         </Helmet>
 
-        <h1>All movies</h1>
+        <h1 className="mainPage-title">All movies</h1>
         <div className="mainPage-table">
           {this.state.moviesList.length ? wholeTable : noMovies}
+          {this.state.error && <h3 className="error">Error, serverfel</h3>}
         </div>
+        <div className="mainPage-bottom"></div>
       </div>
     );
   }

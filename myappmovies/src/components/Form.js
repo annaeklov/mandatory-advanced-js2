@@ -53,7 +53,7 @@ class Form extends React.Component {
               placeholder="Rating"
               min="0"
               max="5"
-              step="0.5"
+              step="0.1"
               required
               onChange={this.props.handleRating}
               value={this.props.movie.rating}

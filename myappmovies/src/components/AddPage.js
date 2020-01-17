@@ -26,7 +26,6 @@ class AddPage extends React.Component {
 
   handleAddMovie(e) {
     e.preventDefault();
-    console.log(this.state.movie);
     Postapi(this.state.movie).then(res => {
       if (res.status === 201) {
         this.setState({isPosted: true})

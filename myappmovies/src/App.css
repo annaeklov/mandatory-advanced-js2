@@ -1,13 +1,16 @@
 
 .App{
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 150%;
     background-image: url("./img/backgroundLA.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position-y: 80%;
     background-position-x: 30%;
+    background-size: cover;
 }
 
+/*--HEADER--*/
 header{
     display: flex;
     flex-direction: column;
@@ -31,6 +34,55 @@ nav{
     text-decoration: none;
 }
 
-.mainPage-delBtn{
+/*--MAIN PAGE--*/
+
+.mainPage-title{
+    margin:5px;
+}
+
+.mainPage-bottom {
+    height: 200px;
+}
+
+/*--TABLE--*/
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 5px 0px 5px 5px ;
+  }
+  
+  th {
+    text-align: left;
+    padding: 10px;
+  }
+
+  td {
+    text-align: left;
+    padding: 5px;
+  }
+  
+  tr:nth-child(even) {
+      background-color: #f2f2f2a1;
+    }
+
+    b{
+        margin-left: 3px;
+    }
+
+
+/*--TABLE ICONS--*/
+
+.fa-info-circle, .fa-pencil-square-o, .fa-trash-o{
+    background: linear-gradient(rgb(176, 176, 176), rgb(0, 0, 0));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     cursor: pointer;
+    font-size: 25px;
+}
+
+.fa-info-circle:hover, .fa-pencil-square-o:hover, .fa-trash-o:hover{
+    background:darkgrey;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
