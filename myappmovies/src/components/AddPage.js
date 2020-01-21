@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import Form from "./Form.js";
-import axios from "axios";
 import Postapi from "../api/Postapi.js";
 import { Redirect } from "react-router-dom";
 

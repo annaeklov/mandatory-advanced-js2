@@ -63,7 +63,7 @@ class EditPage extends React.Component {
           <title>Edit Page</title>
         </Helmet>
         <h1>Edit Page</h1>
-        <h3 className="editPage-formTitle">Edit (movie name)</h3>
+        <h3 className="editPage-formTitle">Edit movie: {this.state.movie.title}</h3>
         <Form
           movie={this.state.movie}
           handleSubmit={this.handleEditMovie}

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 function Putapi(id, movie) {
-    console.log("put api")
 
   return axios
     .put("http://3.120.96.16:3001/movies/" + id, movie)
@@ -10,7 +9,8 @@ function Putapi(id, movie) {
       return response;
     })
     .catch(error => {
-      return error;
+      console.log(error);
+      return "Error";
     });
 }
 export default Putapi;

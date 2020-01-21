@@ -8,7 +8,7 @@ function DeleteApi(id) {
     })
     .catch(error => {
       console.log(error);
-      return "Error";
+      return error;
     });
 }
 

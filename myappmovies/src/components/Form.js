@@ -16,6 +16,7 @@ class Form extends React.Component {
               name="title"
               placeholder="Title"
               required
+              autoFocus
               minLength="1"
               maxLength="40"
               onChange={this.props.handleTitle}
@@ -48,16 +49,15 @@ class Form extends React.Component {
           <div className="form-rating">
             <label name="rating">Rating (0-5):</label>
             <input
-              type="number"
+              type="range"
               name="rating"
-              placeholder="Rating"
               min="0"
               max="5"
-              step="0.1"
-              required
+              step="0.5"
               onChange={this.props.handleRating}
               value={this.props.movie.rating}
             />
+            <output name="rating">{this.props.movie.rating} /5</output>
           </div>
           <div className="form-submitBtn">
             <input type="submit" value="Done" />

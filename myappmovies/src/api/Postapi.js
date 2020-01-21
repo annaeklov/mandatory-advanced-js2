@@ -9,7 +9,8 @@ function Postapi(movie) {
       return response;
     })
     .catch(error => {
-      return error;
+      console.log(error);
+      return "Error";
     });
 }
 export default Postapi;

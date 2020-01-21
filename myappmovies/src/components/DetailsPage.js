@@ -41,8 +41,11 @@ class DetailsPage extends React.Component {
             <p>{this.state.movie.description}</p>
           </div>
           <div className="detailsPage-movieRating">
-            <h3>Rating:</h3>
-            <p>{this.state.movie.rating}</p>
+            <h3>Rating (0-5):</h3>
+            <p>
+              <i className="fa fa-star"></i>
+              {this.state.movie.rating}
+            </p>
           </div>
         </div>
         <Link to={"/edit/" + this.state.movie.id}>

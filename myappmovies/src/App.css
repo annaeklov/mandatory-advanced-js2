@@ -36,12 +36,22 @@ nav{
 
 /*--MAIN PAGE--*/
 
+
 .mainPage-title{
-    margin:5px;
+    margin: 5px 20px;
 }
 
 .mainPage-bottom {
     height: 200px;
+}
+
+
+
+
+
+.noMoviesP{
+    color: grey;
+    font-style: oblique;
 }
 
 /*--TABLE--*/
@@ -49,7 +59,7 @@ nav{
 table {
     border-collapse: collapse;
     width: 90%;
-    margin: 5px 0px 5px 5px ;
+    margin: 5px 0px 5px 20px ;
   }
   
   th {
@@ -85,4 +95,19 @@ table {
     background:darkgrey;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.fa-star{
+    color: #ffcc00;
+    margin-right: 5px;
+}
+
+/*--FORM--*/
+
+output{
+    text-align: center;
+    color: papayawhip;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #282c34;
 }
