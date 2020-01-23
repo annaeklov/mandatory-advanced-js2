@@ -14,7 +14,8 @@ class AddPage extends React.Component {
         description: "",
         rating: 0
       },
-      isPosted: false
+      isPosted: false,
+      invalidInput: false
     };
     this.handleAddMovie = this.handleAddMovie.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -25,9 +26,20 @@ class AddPage extends React.Component {
 
   handleAddMovie(e) {
     e.preventDefault();
+    if (
+      this.state.movie.title.trim().length == 0 ||
+      this.state.movie.director.trim().length == 0 ||
+      this.state.movie.description.trim().length == 0
+    ) {
+      this.setState({ invalidInput: true });
+      this.setState({ movie: {title: "", director: "", description: "", rating: 0} });
+
+      console.log("invalid input");
+      return;
+    }
     Postapi(this.state.movie).then(res => {
       if (res.status === 201) {
-        this.setState({isPosted: true})
+        this.setState({ isPosted: true });
       }
     });
   }
@@ -50,7 +62,7 @@ class AddPage extends React.Component {
   render() {
     return (
       <div className="addPage">
-      {this.state.isPosted && <Redirect to="/"/>}
+        {this.state.isPosted && <Redirect to="/" />}
         <Helmet>
           <title>Add page</title>
         </Helmet>
@@ -64,6 +76,7 @@ class AddPage extends React.Component {
           handleDescription={this.handleChangeDescription}
           handleRating={this.handleChangeRating}
         />
+        {this.state.invalidInput && <p style={{color: "red"}}>Invalid input, <b>only</b> whitespaces are not allowed..</p>}
       </div>
     );
   }

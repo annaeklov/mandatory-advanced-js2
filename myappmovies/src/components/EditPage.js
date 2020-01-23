@@ -13,9 +13,11 @@ class EditPage extends React.Component {
         title: "",
         director: "",
         description: "",
-        rating: 0
+        rating: 0,
+        onError: false
       },
-      isPosted: false
+      isPosted: false,
+      invalidInput: false
     };
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeDirector = this.handleChangeDirector.bind(this);
@@ -26,7 +28,13 @@ class EditPage extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    GetMovieApi(id).then(data => this.setState({ movie: data }));
+    GetMovieApi(id).then(response => {
+      if (response.status === 200) {
+        this.setState({ movie: response.data });
+      } else {
+        this.setState({ onError: true });
+      }
+    });
   }
 
   handleChangeTitle(e) {
@@ -47,23 +55,39 @@ class EditPage extends React.Component {
 
   handleEditMovie(e) {
     e.preventDefault();
+    if (
+      this.state.movie.title.trim().length == 0 ||
+      this.state.movie.director.trim().length == 0 ||
+      this.state.movie.description.trim().length == 0
+    ) {
+      this.setState({ invalidInput: true });
+      this.setState({
+        movie: { title: "", director: "", description: "", rating: 0}
+      });
+
+      console.log("invalid input");
+      return;
+    }
     let id = this.props.match.params.id;
-    Putapi(id, this.state.movie).then(res => {
-      if (res.status === 200) {
-        this.setState({ isPosted: true });
-      }
-    });
+    Putapi(id, this.state.movie)
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({ isPosted: true });
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
-    return (
-      <div className="editPage">
-        {this.state.isPosted && <Redirect to="/" />}
-        <Helmet>
-          <title>Edit Page</title>
-        </Helmet>
-        <h1>Edit Page</h1>
-        <h3 className="editPage-formTitle">Edit movie: {this.state.movie.title}</h3>
+    let errorP = (
+      <p>Oops, the movie does not exist anymore. Go back and try again..</p>
+    );
+
+    let editForm = (
+      <>
+        <h3 className="editPage-formTitle">
+          Edit movie: {this.state.movie.title}
+        </h3>
         <Form
           movie={this.state.movie}
           handleSubmit={this.handleEditMovie}
@@ -72,6 +96,21 @@ class EditPage extends React.Component {
           handleDescription={this.handleChangeDescription}
           handleRating={this.handleChangeRating}
         />
+      </>
+    );
+    return (
+      <div className="editPage">
+        {this.state.isPosted && <Redirect to="/" />}
+        <Helmet>
+          <title>Edit Page</title>
+        </Helmet>
+        <h1>Edit Page</h1>
+        {this.state.onError ? errorP : editForm}
+        {this.state.invalidInput && (
+          <p style={{ color: "red" }}>
+            Invalid input, <b>only</b> whitespaces are not allowed..
+          </p>
+        )}
       </div>
     );
   }

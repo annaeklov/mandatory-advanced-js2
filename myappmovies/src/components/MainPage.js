@@ -8,8 +8,10 @@ class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       moviesList: [],
-      error: false,
+      onErrorDel: false,
+      onErrorGet: false,
       search: ""
     };
     this.handleDelete = this.handleDelete.bind(this);
@@ -18,18 +20,18 @@ class MainPage extends React.Component {
 
   componentDidMount() {
     Getapi()
-      .then(data => this.setState({ moviesList: data }))
-      .catch(err => this.setState({ error: true }));
+      .then(data => this.setState({ moviesList: data, loading: false }))
+      .catch(err => this.setState({ onErrorGet: true }));
   }
 
   handleDelete(id) {
-    DeleteApi(id)
-      .then(response => {
-        if (response.status === 204) {
-          Getapi().then(data => this.setState({ moviesList: data }));
-        }
-      })
-      .catch(err => this.setState({ error: true }));
+    DeleteApi(id).then(response => {
+      if (response.status === 204) {
+        Getapi().then(data => this.setState({ moviesList: data }));
+      } else {
+        this.setState({ onErrorDel: true });
+      }
+    });
   }
 
   updateSearch(e) {
@@ -113,35 +115,46 @@ class MainPage extends React.Component {
           id="searchBarId"
           className="searchBar"
           name="searchBar"
-          placeholder="Search here"
+          placeholder="Search title or director"
           value={this.state.search}
           onChange={this.updateSearch}
         />
       </div>
     );
 
+    let main;
+
+    if (this.state.loading === false) {
+      if (this.state.moviesList.length) {
+        main = wholeTable;
+      } else {
+        main = noMovies(
+          "Oops, the table is empty, no movies to show.. Add a new movie!"
+        );
+      }
+    } else main = noMovies("Loading...");
+
     return (
       <div className="mainPage">
         <Helmet>
           <title>Main page</title>
         </Helmet>
-
         <h1 className="mainPage-title">All movies</h1>
         {searchBar}
+        {this.state.onErrorDel && (
+          <h3 style={{color: "red"}}>Oops, the movie is already deleted by someone else..</h3>
+        )}
 
         {filteredSearch.length === 0 &&
+          this.state.search.length > 0 &&
           noMovies("No title or director found...")}
 
-        <div className="mainPage-table">
-          {this.state.moviesList.length
-            ? wholeTable
-            : noMovies(
-                "Oops, the table is empty, no movies to show.. Add a new movie!"
-              )}
-        </div>
+        <div className="mainPage-table">{main}</div>
 
         <div className="mainPage-bottom">
-          {this.state.error && <h3 className="error">Error, serverfel</h3>}
+          {this.state.onErrorGet && (
+            <h3 className="mainPageError">Error, serverfel</h3>
+          )}
         </div>
       </div>
     );

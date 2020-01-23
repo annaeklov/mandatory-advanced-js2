@@ -7,22 +7,29 @@ class DetailsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: {}
+      movie: {},
+      onError: false
     };
   }
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    GetMovieApi(id).then(data => this.setState({ movie: data }));
+    GetMovieApi(id).then(response => {
+      if (response.status === 200) {
+        this.setState({ movie: response.data });
+      } else {
+        this.setState({ onError: true });
+      }
+    });
   }
 
   render() {
-    return (
-      <div className="detailsPage">
-        <Helmet>
-          <title>Details Page</title>
-        </Helmet>
-        <h1>Details Page</h1>
+    let errorP = (
+      <p>Oops, the movie does not exist anymore. Go back and try again..</p>
+    );
+
+    let allDetails = (
+      <>
         <div className="detailsPage-pageTitle">
           <h3 className="detailsPage-firstTitle">Showing details about:</h3>
           <h2 className="detailsPage-movieTitle">{this.state.movie.title}</h2>
@@ -47,13 +54,23 @@ class DetailsPage extends React.Component {
               {this.state.movie.rating}
             </p>
           </div>
+          <Link to={"/edit/" + this.state.movie.id}>
+            <i
+              className="mainPage-editBtn fa fa-pencil-square-o"
+              title="Edit movie"
+            ></i>
+          </Link>
         </div>
-        <Link to={"/edit/" + this.state.movie.id}>
-          <i
-            className="mainPage-editBtn fa fa-pencil-square-o"
-            title="Edit movie"
-          ></i>
-        </Link>
+      </>
+    );
+
+    return (
+      <div className="detailsPage">
+        <Helmet>
+          <title>Details Page</title>
+        </Helmet>
+        <h1>Details Page</h1>
+        {this.state.onError ? errorP : allDetails}
       </div>
     );
   }
