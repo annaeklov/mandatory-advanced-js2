@@ -1,4 +1,7 @@
+*{
+    font-family: 'Lora', serif;
 
+}
 .App{
     min-height: 100vh;
     max-height: 150%;
@@ -8,6 +11,7 @@
     background-position-y: 80%;
     background-position-x: 30%;
     background-size: cover;
+
 }
 
 /*--HEADER--*/
@@ -27,6 +31,7 @@ nav{
     color:black;
     text-decoration: underline;
     margin: 10px;
+
 } 
 
 .nav-link:hover{
@@ -37,21 +42,33 @@ nav{
 /*--MAIN PAGE--*/
 
 
-.mainPage-title{
+.mainPage-title, .editPage-title, .addPage-title, .detailsPage-title{
     margin: 5px 20px;
+    color: rgb(58, 58, 58)
 }
+
 
 .mainPage-bottom {
     height: 200px;
 }
 
+.searchBarDiv {
+    margin: 5px 20px;
+}
 
-
-
+.searchBar {
+    outline: none;
+    border: 0;
+    border-bottom: solid 1px black;
+    width: 300px;
+    font-size: 15px;
+    margin-top: 10px;
+}
 
 .noMoviesP{
     color: grey;
     font-style: oblique;
+    margin-left: 20px;
 }
 
 /*--TABLE--*/
@@ -64,12 +81,14 @@ table {
   
   th {
     text-align: left;
-    padding: 10px;
+    padding: 10px 10px 10px 3px;
+    font-size: 23px;
   }
 
   td {
     text-align: left;
     padding: 5px;
+    font-size: 18px;
   }
   
   tr:nth-child(even) {
@@ -110,4 +129,9 @@ output{
     padding: 5px;
     border-radius: 3px;
     background-color: #282c34;
+}
+
+.form-formWrapper, .addPage-formTitle, .editPage-formTitle, .detailsPage-details, .detailsPage-pageTitle{
+    margin: 5px 0px 5px 20px ;
+
 }

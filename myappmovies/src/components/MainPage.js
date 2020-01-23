@@ -139,7 +139,7 @@ class MainPage extends React.Component {
         <Helmet>
           <title>Main page</title>
         </Helmet>
-        <h1 className="mainPage-title">All movies</h1>
+        <h1 className="mainPage-title">ALL MOVIES</h1>
         {searchBar}
         {this.state.onErrorDel && (
           <h3 style={{color: "red"}}>Oops, the movie is already deleted by someone else..</h3>

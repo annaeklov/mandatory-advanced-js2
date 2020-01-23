@@ -104,7 +104,7 @@ class EditPage extends React.Component {
         <Helmet>
           <title>Edit Page</title>
         </Helmet>
-        <h1>Edit Page</h1>
+        <h1 className="editPage-title">EDIT PAGE</h1>
         {this.state.onError ? errorP : editForm}
         {this.state.invalidInput && (
           <p style={{ color: "red" }}>

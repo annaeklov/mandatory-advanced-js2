@@ -69,7 +69,7 @@ class DetailsPage extends React.Component {
         <Helmet>
           <title>Details Page</title>
         </Helmet>
-        <h1>Details Page</h1>
+        <h1 className="detailsPage-title">DETAILS PAGE</h1>
         {this.state.onError ? errorP : allDetails}
       </div>
     );

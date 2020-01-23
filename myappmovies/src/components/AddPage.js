@@ -66,7 +66,7 @@ class AddPage extends React.Component {
         <Helmet>
           <title>Add page</title>
         </Helmet>
-        <h1>Add page</h1>
+        <h1 className="addPage-title">ADD PAGE</h1>
         <h3 className="addPage-formTitle">Add movie</h3>
         <Form
           movie={this.state.movie}
