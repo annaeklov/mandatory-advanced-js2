@@ -1,8 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import Getapi from "../api/GetMoviesApi.js";
 import DeleteApi from "../api/DeleteApi.js";
-import { Link } from "react-router-dom";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -18,6 +18,8 @@ class MainPage extends React.Component {
     this.updateSearch = this.updateSearch.bind(this);
   }
 
+  /* ------ METODER ------ */
+
   componentDidMount() {
     Getapi()
       .then(data => this.setState({ moviesList: data, loading: false }))
@@ -25,20 +27,28 @@ class MainPage extends React.Component {
   }
 
   handleDelete(id) {
-    DeleteApi(id).then(response => {
-      if (response.status === 204) {
-        Getapi().then(data => this.setState({ moviesList: data }));
-      } else {
+    DeleteApi(id)
+      .then(response => {
+        if (response.status === 204) {
+          Getapi().then(data => this.setState({ moviesList: data }));
+        } else {
+          this.setState({ onErrorDel: true });
+        }
+      })
+      .catch(error => {
+        console.log(error);
         this.setState({ onErrorDel: true });
-      }
-    });
+      });
   }
 
   updateSearch(e) {
     this.setState({ search: e.target.value.substr(0, 40) });
   }
 
+  /* ------ RENDER ------ */
+
   render() {
+    // hanterar searchbar
     let filteredSearch = this.state.moviesList.filter(movie => {
       return (
         movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
@@ -128,11 +138,11 @@ class MainPage extends React.Component {
       if (this.state.moviesList.length) {
         main = wholeTable;
       } else {
-        main = noMovies(
-          "Oops, the table is empty, no movies to show.. Add a new movie!"
-        );
+        main = noMovies("Oops, the table is empty.. Add a new movie!");
       }
     } else main = noMovies("Loading...");
+
+    /* ------ RETURN ------ */
 
     return (
       <div className="mainPage">
@@ -142,18 +152,20 @@ class MainPage extends React.Component {
         <h1 className="mainPage-title">ALL MOVIES</h1>
         {searchBar}
         {this.state.onErrorDel && (
-          <h3 style={{color: "red"}}>Oops, the movie is already deleted by someone else..</h3>
+          <h3 style={{ color: "red" }}>
+            Oops, the movie doesn't exist anymore..
+          </h3>
         )}
 
         {filteredSearch.length === 0 &&
           this.state.search.length > 0 &&
-          noMovies("No title or director found...")}
+          noMovies("No title or director found..")}
 
         <div className="mainPage-table">{main}</div>
 
         <div className="mainPage-bottom">
           {this.state.onErrorGet && (
-            <h3 className="mainPageError">Error, serverfel</h3>
+            <h3 className="mainPageError">Error, serverfel..</h3>
           )}
         </div>
       </div>

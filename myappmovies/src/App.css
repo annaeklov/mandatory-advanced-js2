@@ -44,7 +44,7 @@ nav{
 
 .mainPage-title, .editPage-title, .addPage-title, .detailsPage-title{
     margin: 5px 20px;
-    color: rgb(58, 58, 58)
+    color: rgb(58, 58, 58);
 }
 
 
@@ -118,20 +118,72 @@ table {
 
 .fa-star{
     color: #ffcc00;
-    margin-right: 5px;
+    margin: 0px 5px;
+    font-size: 1.4em;
 }
 
 /*--FORM--*/
 
 output{
+    padding: 5px;
+}
+
+output, input[type=submit]{
     text-align: center;
     color: papayawhip;
-    padding: 5px;
     border-radius: 3px;
     background-color: #282c34;
 }
 
-.form-formWrapper, .addPage-formTitle, .editPage-formTitle, .detailsPage-details, .detailsPage-pageTitle{
-    margin: 5px 0px 5px 20px ;
+input[type=submit]{
+    outline: none;
+    width: 80px;
+    height: 40px;
+    margin: 10px 100px;
+}
 
+input[type=submit]:hover{
+    background: rgba(235, 235, 235, 0.048);
+    color: #282c34;
+    border: solid 1px #282c34;
+}
+
+.form-formWrapper, .addPage-formTitle, .editPage-formTitle, .detailsPage-details, .detailsPage-pageTitle{
+    margin:20px 0px 5px 20px ;
+}
+
+.form-titleAndDirector, .form-description{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+input[type=text] {
+    outline: none;
+    border:0;
+    border-bottom: solid 1px black;
+    width: 300px;
+    font-size: 15px;
+    margin: 5px;
+}
+
+textarea{
+    width: 300px;
+    height: 100px;
+    margin: 5px;
+
+}
+
+input[type=range] {
+    margin: 10px;
+}
+
+label{
+    margin: 2px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+input[value]{
+    font-size: 15px;
 }

@@ -7,6 +7,8 @@ import AddPage from "./components/AddPage.js";
 import EditPage from "./components/EditPage.js";
 import DetailsPage from "./components/DetailsPage.js";
 
+// App.js är parent till add, edit, main och details. innehåller inga state, behövs ej.
+
 class App extends React.Component {
   render() {
     return (

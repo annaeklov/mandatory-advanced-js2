@@ -1,32 +1,36 @@
 import React from "react";
 
+// Form är bara en "dum" komponent som kan användas på flera ställen, får props från andra .js-filer
+// barn till add.js och edit.js, syns pga de använder Form.js i sin return och skickar med metoder till Form.js
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <main className="form-formWrapper">
-        <form onSubmit={this.props.handleSubmit}>
+        <form onSubmit={this.props.handleSubmit}> {/* kommer från add.js och/eller edit.js*/}
           <div className="form-titleAndDirector">
             <label name="title">Title:</label>
             <input
               type="text"
               name="title"
-              placeholder="Title"
+              placeholder="Title (max 40 characters)"
               required
               autoFocus
               minLength="1"
               maxLength="40"
-              onChange={this.props.handleTitle}
-              value={this.props.movie.title}
+              onChange={this.props.handleTitle} // kommer från add.js och/eller edit.js
+              value={this.props.movie.title} // kommer från add.js och/eller edit.js
             />
             <label name="director">Director:</label>
             <input
               type="text"
               name="director"
-              placeholder="Director"
+              placeholder="Director (max 40 characters)"
               required
               minLength="1"
               maxLength="40"
@@ -38,7 +42,7 @@ class Form extends React.Component {
             <label name="description">Description:</label>
             <textarea
               name="description"
-              placeholder="Add description here"
+              placeholder="Add description here (max 300 characters)"
               required
               minLength="1"
               maxLength="300"
