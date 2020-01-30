@@ -38,11 +38,18 @@ class DetailsPage extends React.Component {
     let allDetails = (
       <>
         <div className="detailsPage-pageTitle">
-          <h3 className="detailsPage-firstTitle">Showing details about:</h3>
-          <h2 className="detailsPage-movieTitle">{this.state.movie.title}</h2>
+          <h3 className="detailsPage-firstTitle">
+            Showing details about the selected movie
+          </h3>
         </div>
         <div className="detailsPage-details">
-          <div className="detailsPage-movieTitle">
+          <Link to={"/edit/" + this.state.movie.id}>
+            <i
+              className="mainPage-editBtn fa fa-pencil-square-o"
+              title="Edit movie"
+            ></i>
+          </Link>
+          <div className="detailsPage-movieTitleTwo">
             <h3>Title:</h3>
             <p>{this.state.movie.title}</p>
           </div>
@@ -57,16 +64,10 @@ class DetailsPage extends React.Component {
           <div className="detailsPage-movieRating">
             <h3>Rating (0-5):</h3>
             <p>
-              {this.state.movie.rating} 
+              {this.state.movie.rating}
               <i className="fa fa-star"></i>
             </p>
           </div>
-          <Link to={"/edit/" + this.state.movie.id}>
-            <i
-              className="mainPage-editBtn fa fa-pencil-square-o"
-              title="Edit movie"
-            ></i>
-          </Link>
         </div>
       </>
     );
