@@ -104,6 +104,7 @@ class EditPage extends React.Component {
           handleDirector={this.handleChangeDirector}
           handleDescription={this.handleChangeDescription}
           handleRating={this.handleChangeRating}
+          submitButtonText="Edit"
         />
       </>
     );

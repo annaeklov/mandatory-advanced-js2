@@ -88,6 +88,7 @@ class AddPage extends React.Component {
           handleDirector={this.handleChangeDirector}
           handleDescription={this.handleChangeDescription}
           handleRating={this.handleChangeRating}
+          submitButtonText="Add"
         />
 
         {this.state.invalidInput && (

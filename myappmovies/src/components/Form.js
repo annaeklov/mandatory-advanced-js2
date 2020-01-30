@@ -64,7 +64,7 @@ class Form extends React.Component {
             <output name="rating">{this.props.movie.rating} /5</output>
           </div>
           <div className="form-submitBtn">
-            <input type="submit" value="Done" />
+            <input type="submit" value={this.props.submitButtonText} />
           </div>
         </form>
       </main>
